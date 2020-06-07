@@ -1,5 +1,7 @@
-﻿using CSharp_DesignPatterns.Builder;
+﻿using CSharp_DesignPatterns.Adapter;
+using CSharp_DesignPatterns.Builder;
 using CSharp_DesignPatterns.Command;
+using CSharp_DesignPatterns.Decorator;
 using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
 using CSharp_DesignPatterns.Factory.AbstractFactory;
@@ -16,7 +18,9 @@ namespace CSharp_DesignPatterns
             //TestCommand();
             //TestBuilder();
             //TestFacade();
-            TestFactory();
+            //TestFactory();
+            //TestDecorator();
+            TestAdapter();
 
             Console.ReadKey();
         }
@@ -65,6 +69,8 @@ namespace CSharp_DesignPatterns
         
         public static void TestFactory()
         {
+            Console.WriteLine("-- TEST FACTORY --");
+
             //Factory that creates all shapes but with different factory implementations
             Console.WriteLine("\nShapeFactory");
             IFactory factory = new FactoryShape();
@@ -89,6 +95,32 @@ namespace CSharp_DesignPatterns
             Console.WriteLine(bmw.TurnOff());
             Console.WriteLine(mini.TurnOn());
             Console.WriteLine(mini.TurnOff());
+        }
+
+        public static void TestDecorator()
+        {
+            Console.WriteLine("-- TEST DECORATOR --");
+
+            IComponent basicHero = new Component();
+            Console.WriteLine(basicHero.GetEquipment());
+
+            IComponent shieldHero = new DecoratorEquipShield(basicHero);
+            Console.WriteLine(shieldHero.GetEquipment());
+
+            IComponent loggedShieldHero = new DecoratorLogging(shieldHero);
+            Console.WriteLine(loggedShieldHero.GetEquipment());
+
+            IComponent wrappedHero = new DecoratorLogging(new DecoratorEquipShield(new Component()));
+            Console.WriteLine(wrappedHero.GetEquipment());
+        }
+
+        public static void TestAdapter()
+        {
+            Console.WriteLine("-- TEST ADAPTER --");
+            Source source = new Source();
+            IAdapter adapter = new SourceToDestinationAdapter(source);
+            Destination destination = new Destination(adapter);
+            destination.RecieveData();
         }
     }
 }
