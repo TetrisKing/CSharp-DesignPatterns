@@ -1,6 +1,8 @@
 ﻿using CSharp_DesignPatterns.Builder;
 using CSharp_DesignPatterns.Command;
 using CSharp_DesignPatterns.Facade;
+using CSharp_DesignPatterns.Factory;
+using CSharp_DesignPatterns.Factory.AbstractFactory;
 using System;
 
 namespace CSharp_DesignPatterns
@@ -13,7 +15,8 @@ namespace CSharp_DesignPatterns
             //TestSingleton(); 
             //TestCommand();
             //TestBuilder();
-            TestFacade();
+            //TestFacade();
+            TestFactory();
 
             Console.ReadKey();
         }
@@ -58,6 +61,34 @@ namespace CSharp_DesignPatterns
             FacadeClass.FacadeMethodA();
             FacadeClass.FacadeMethodB();
             FacadeClass.FacadeMethodWorkerVariant();
+        }
+        
+        public static void TestFactory()
+        {
+            //Factory that creates all shapes but with different factory implementations
+            Console.WriteLine("\nShapeFactory");
+            IFactory factory = new FactoryShape();
+            IShape square = factory.CreateInstance("shapesquare", 5);
+            IShape triangle = factory.CreateInstance("shapetriangle", 5);
+            Console.WriteLine(square.GetInfo());
+            Console.WriteLine(triangle.GetInfo());
+
+            Console.WriteLine("\nShapeDoubleSideFactory");
+            IFactory doubleFactory = new FactoryShapeDoubleSide();
+            IShape doubleSquare = doubleFactory.CreateInstance("shapesquare", 5);
+            IShape doubleTriangle = doubleFactory.CreateInstance("shapetriangle", 5);
+            Console.WriteLine(doubleSquare.GetInfo());
+            Console.WriteLine(doubleTriangle.GetInfo());
+
+            //Load a Factory to create a specific type of ICar
+            ICarFactory bmwFactory = FactoryLoader.GetCarFactory("FactoryBMW");
+            ICarFactory miniFactory = FactoryLoader.GetCarFactory("FactoryMiniCooper");
+            ICar bmw = bmwFactory.CreateInstance();
+            ICar mini = miniFactory.CreateInstance();
+            Console.WriteLine(bmw.TurnOn());
+            Console.WriteLine(bmw.TurnOff());
+            Console.WriteLine(mini.TurnOn());
+            Console.WriteLine(mini.TurnOff());
         }
     }
 }
