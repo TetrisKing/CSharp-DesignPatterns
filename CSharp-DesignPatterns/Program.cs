@@ -1,5 +1,6 @@
 ﻿using CSharp_DesignPatterns.Builder;
 using CSharp_DesignPatterns.Command;
+using CSharp_DesignPatterns.Facade;
 using System;
 
 namespace CSharp_DesignPatterns
@@ -11,7 +12,8 @@ namespace CSharp_DesignPatterns
             Console.WriteLine("Design Patterns!");
             //TestSingleton(); 
             //TestCommand();
-            TestBuilder();
+            //TestBuilder();
+            TestFacade();
 
             Console.ReadKey();
         }
@@ -47,6 +49,15 @@ namespace CSharp_DesignPatterns
             Director uppercaseDirector = new Director(uppercaseBuilder);
             Product uppercaseProduct = uppercaseDirector.BuildNameOnly();
             Console.WriteLine($"{nameof(uppercaseProduct)} - ID:{uppercaseProduct.Id} Name:{uppercaseProduct.Name}");
+        }
+
+        public static void TestFacade()
+        {
+            Console.WriteLine("-- TEST FACADE --");
+
+            FacadeClass.FacadeMethodA();
+            FacadeClass.FacadeMethodB();
+            FacadeClass.FacadeMethodWorkerVariant();
         }
     }
 }
