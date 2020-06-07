@@ -5,6 +5,7 @@ using CSharp_DesignPatterns.Decorator;
 using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
 using CSharp_DesignPatterns.Factory.AbstractFactory;
+using CSharp_DesignPatterns.State;
 using System;
 
 namespace CSharp_DesignPatterns
@@ -20,7 +21,8 @@ namespace CSharp_DesignPatterns
             //TestFacade();
             //TestFactory();
             //TestDecorator();
-            TestAdapter();
+            //TestAdapter();
+            TestState();
 
             Console.ReadKey();
         }
@@ -121,6 +123,15 @@ namespace CSharp_DesignPatterns
             IAdapter adapter = new SourceToDestinationAdapter(source);
             Destination destination = new Destination(adapter);
             destination.RecieveData();
+        }
+
+        public static void TestState() {
+            StateContext context = new StateContext(new StateOpen());
+            context.DoWork();
+            context.ChangeState();
+            context.DoWork();
+            context.ChangeState();
+            context.DoWork();
         }
     }
 }
