@@ -5,6 +5,7 @@ using CSharp_DesignPatterns.Decorator;
 using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
 using CSharp_DesignPatterns.Factory.AbstractFactory;
+using CSharp_DesignPatterns.Observer;
 using CSharp_DesignPatterns.State;
 using System;
 
@@ -22,7 +23,8 @@ namespace CSharp_DesignPatterns
             //TestFactory();
             //TestDecorator();
             //TestAdapter();
-            TestState();
+            //TestState();
+            TestObserver();
 
             Console.ReadKey();
         }
@@ -119,19 +121,44 @@ namespace CSharp_DesignPatterns
         public static void TestAdapter()
         {
             Console.WriteLine("-- TEST ADAPTER --");
+
             Source source = new Source();
             IAdapter adapter = new SourceToDestinationAdapter(source);
             Destination destination = new Destination(adapter);
             destination.RecieveData();
         }
 
-        public static void TestState() {
+        public static void TestState()
+        {
+            Console.WriteLine("-- TEST STATE --");
+
             StateContext context = new StateContext(new StateOpen());
             context.DoWork();
             context.ChangeState();
             context.DoWork();
             context.ChangeState();
             context.DoWork();
+        }
+
+        public static void TestObserver()
+        {
+            Console.WriteLine("-- TEST OBSERVER IObservable Pattern--");
+            LocationReporter reporter = new LocationReporter();
+            LocationObserver observer1 = new LocationObserver("observer1");
+            LocationObserver observer2 = new LocationObserver("observer2");
+            LocationObserver observer3 = new LocationObserver("observer3");
+            observer1.Subscribe(reporter);
+            observer2.Subscribe(reporter);
+            observer3.Subscribe(reporter);
+
+            reporter.TrackLocation(new Location(10, 10));
+            observer3.Unsubscribe();
+
+            reporter.TrackLocation(new Location(100, 333));
+
+            reporter.TrackLocation(null);
+
+            reporter.EndTransmission();
         }
     }
 }
