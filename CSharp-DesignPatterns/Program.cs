@@ -6,10 +6,13 @@ using CSharp_DesignPatterns.Decorator;
 using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
 using CSharp_DesignPatterns.Factory.AbstractFactory;
+using CSharp_DesignPatterns.Iterator;
 using CSharp_DesignPatterns.Observer;
 using CSharp_DesignPatterns.Prototype;
 using CSharp_DesignPatterns.State;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharp_DesignPatterns
 {
@@ -28,7 +31,8 @@ namespace CSharp_DesignPatterns
             //TestState();
             //TestObserver();
             //TestPrototype();
-            TestComposite();
+            //TestComposite();
+            TestIterator();
 
             Console.ReadKey();
         }
@@ -146,7 +150,7 @@ namespace CSharp_DesignPatterns
 
         public static void TestObserver()
         {
-            Console.WriteLine("-- TEST OBSERVER IObservable Pattern--");
+            Console.WriteLine("-- TEST OBSERVER IObservable Pattern --");
             LocationReporter reporter = new LocationReporter();
             LocationObserver observer1 = new LocationObserver("observer1");
             LocationObserver observer2 = new LocationObserver("observer2");
@@ -166,7 +170,7 @@ namespace CSharp_DesignPatterns
         }
 
         public static void TestPrototype() {
-            Console.WriteLine("-- TEST PROTOTYPE--");
+            Console.WriteLine("-- TEST PROTOTYPE --");
             IPrototype proA = new PrototypeA("ProtoA");
             IPrototype proB = proA.Clone();
             Console.WriteLine($"Original - {proA.GetName()}");
@@ -175,7 +179,7 @@ namespace CSharp_DesignPatterns
 
         public static void TestComposite()
         {
-            Console.WriteLine("-- TEST COMPOSITE--");
+            Console.WriteLine("-- TEST COMPOSITE --");
             ICompositeCompenent main = new CompositeComponent("TOP");
 
             ICompositeCompenent componentA = new CompositeComponent("ComponentA");
@@ -198,6 +202,25 @@ namespace CSharp_DesignPatterns
             main.Add(componentA);
             main.Add(componentB);
             main.Display(0);
+        }
+
+        public static void TestIterator()
+        {
+            Console.WriteLine("-- TEST ITERATOR --");
+
+            Console.WriteLine("ForwardIterator");
+            IteratorDataCollection data = new IteratorDataCollection();
+            foreach (var item in data)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("ReverseIterator");
+            IteratorDataCollection reverseData = new IteratorDataCollection(true);
+            foreach (var item in reverseData)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
