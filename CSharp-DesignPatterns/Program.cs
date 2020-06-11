@@ -1,6 +1,7 @@
 ﻿using CSharp_DesignPatterns.Adapter;
 using CSharp_DesignPatterns.Builder;
 using CSharp_DesignPatterns.Command;
+using CSharp_DesignPatterns.Composite;
 using CSharp_DesignPatterns.Decorator;
 using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
@@ -26,7 +27,8 @@ namespace CSharp_DesignPatterns
             //TestAdapter();
             //TestState();
             //TestObserver();
-            TestPrototype();
+            //TestPrototype();
+            TestComposite();
 
             Console.ReadKey();
         }
@@ -169,6 +171,33 @@ namespace CSharp_DesignPatterns
             IPrototype proB = proA.Clone();
             Console.WriteLine($"Original - {proA.GetName()}");
             Console.WriteLine($"Clone - {proB.GetName()}");
+        }
+
+        public static void TestComposite()
+        {
+            Console.WriteLine("-- TEST COMPOSITE--");
+            ICompositeCompenent main = new CompositeComponent("TOP");
+
+            ICompositeCompenent componentA = new CompositeComponent("ComponentA");
+            ICompositeCompenent componentB = new CompositeComponent("ComponentB");
+            ICompositeCompenent componentC = new CompositeComponent("ComponentC");
+
+            ICompositeCompenent leaf = new Leaf("Leaf");
+            ICompositeCompenent leafA1 = new Leaf("LeafA1");
+            ICompositeCompenent leafA2 = new Leaf("LeafA2");
+            ICompositeCompenent leafB1 = new Leaf("LeafB1");
+            ICompositeCompenent leafC1 = new Leaf("LeafC1");
+
+            componentA.Add(leafA1);
+            componentA.Add(leafA2);
+            componentB.Add(leafB1);
+            componentB.Add(componentC);
+            componentC.Add(leafC1);
+
+            main.Add(leaf);
+            main.Add(componentA);
+            main.Add(componentB);
+            main.Display(0);
         }
     }
 }
