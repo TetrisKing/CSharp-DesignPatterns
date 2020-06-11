@@ -6,6 +6,7 @@ using CSharp_DesignPatterns.Facade;
 using CSharp_DesignPatterns.Factory;
 using CSharp_DesignPatterns.Factory.AbstractFactory;
 using CSharp_DesignPatterns.Observer;
+using CSharp_DesignPatterns.Prototype;
 using CSharp_DesignPatterns.State;
 using System;
 
@@ -24,7 +25,8 @@ namespace CSharp_DesignPatterns
             //TestDecorator();
             //TestAdapter();
             //TestState();
-            TestObserver();
+            //TestObserver();
+            TestPrototype();
 
             Console.ReadKey();
         }
@@ -159,6 +161,14 @@ namespace CSharp_DesignPatterns
             reporter.TrackLocation(null);
 
             reporter.EndTransmission();
+        }
+
+        public static void TestPrototype() {
+            Console.WriteLine("-- TEST PROTOTYPE--");
+            IPrototype proA = new PrototypeA("ProtoA");
+            IPrototype proB = proA.Clone();
+            Console.WriteLine($"Original - {proA.GetName()}");
+            Console.WriteLine($"Clone - {proB.GetName()}");
         }
     }
 }
