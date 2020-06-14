@@ -13,7 +13,7 @@ namespace CSharp_DesignPatterns.Iterator
         public ReverseIterator(List<int> collection)
         {
             this.collection = collection;
-            currentPosition = collection.Count-1;
+            currentPosition = collection.Count;
         }
 
         public object Current => collection[currentPosition];
